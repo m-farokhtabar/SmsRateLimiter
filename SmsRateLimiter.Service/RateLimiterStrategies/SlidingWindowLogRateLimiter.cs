@@ -5,12 +5,12 @@ namespace SmsRateLimiter.Service.RateLimiterStrategies;
 
 public class SlidingWindowLogRateLimiterStrategy : IRateLimiterStrategy
 {
-    private readonly ConcurrentDictionary<string, ConcurrentQueue<DateTime>> perNumberLogs = new();
+    private readonly ConcurrentDictionary<string, ConcurrentQueue<DateTime>> perNumberLogs = new();    
     private readonly ConcurrentQueue<DateTime> accountLog = new();
     private readonly int phoneNumberLimit;
     private readonly int accountLimit;
     private readonly TimeSpan windowSize;
-    private readonly object accountLock = new(); // Lock for account-wide log
+    private readonly object accountLock = new();
 
     public SlidingWindowLogRateLimiterStrategy(IRateLimiterSetting setting)
     {
@@ -47,7 +47,7 @@ public class SlidingWindowLogRateLimiterStrategy : IRateLimiterStrategy
         // Remove old timestamps outside the sliding window
         while (log.TryPeek(out var timestamp) && now - timestamp > windowSize)
         {
-            log.TryDequeue(out _); // Discard the old timestamp
+            log.TryDequeue(out _);
         }
 
         if (log.Count >= limit)
