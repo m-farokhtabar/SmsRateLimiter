@@ -29,7 +29,7 @@ public class MessageController : ControllerBase
     [HttpGet("status/phonelog/{phoneNumber}")]
     public IActionResult GetPhoneLogsPerTime([Required(ErrorMessage = "Phone number is required")] string phoneNumber) => Ok(smsRateLimiterService.GetPhoneLogsPerTime(phoneNumber));
 
-    [HttpGet("status/phonelog/{phoneNumber}/{from:datetime}/{date:datetime}")]
-    public IActionResult GetPhoneLogsPerTime([Required(ErrorMessage = "Phone number is required")] string phoneNumber, DateTime from,DateTime to) => Ok(smsRateLimiterService.GetPhoneLogs(phoneNumber,from,to));
+    [HttpGet("status/phonelog/{phoneNumber}/{from:datetime}/{to:datetime}")]
+    public IActionResult GetPhoneLogsByDate([Required(ErrorMessage = "Phone number is required")] string phoneNumber, DateTime from,DateTime to) => Ok(smsRateLimiterService.GetPhoneLogs(phoneNumber,from,to));
 
 }
