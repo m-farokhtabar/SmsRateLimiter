@@ -77,8 +77,8 @@ The configuration is managed in the `appsettings.json` file located in the **Sms
    **Method**: `GET`  
    **Query Parameters**:  
    - `phoneNumber`: The business phone number.  
-   - `startDate`: Start datetime for the period.  
-   - `endDate`: End datetime for the period.  
+   - `startDate`: Start datetime for the period(UTC format).  
+   - `endDate`: End datetime for the period(UTC format).  
    **Response**:  
    - List of successful requests from the specified phone number within the date range.
 
