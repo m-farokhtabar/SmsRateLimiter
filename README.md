@@ -50,7 +50,7 @@ The configuration is managed in the `appsettings.json` file located in the **Sms
 ## API Endpoints
 
 1. **Send**: Check if a message can be sent without exceeding the rate limit for the business phone number.  
-   **URL**: `/api/rate-limiter/send`  
+   **URL**: `/api/Message/Send`  
    **Method**: `POST`  
    **Request Body**:  
    - JSON payload to check the rate limit for a given business phone number.  
@@ -59,13 +59,13 @@ The configuration is managed in the `appsettings.json` file located in the **Sms
    - `429 Status` if the rate limit has been exceeded.
 
 2. **GetAccountLogsPerTime**: Get the rate of successful requests for the account in a specified period.  
-   **URL**: `/api/rate-limiter/account-logs-per-time`  
+   **URL**: `/api/Message/status/accountlog`  
    **Method**: `GET`  
    **Response**:  
    - Rate of successful requests for the account.
 
 3. **GetPhoneLogsPerTime**: Get the rate of successful requests for a specific phone number in a given period.  
-   **URL**: `/api/rate-limiter/phone-logs-per-time`  
+   **URL**: `/api/Message/status/phonelog/{phoneNumber}`  
    **Method**: `GET`  
    **Query Parameters**:  
    - `phoneNumber`: The business phone number to check.  
@@ -73,7 +73,7 @@ The configuration is managed in the `appsettings.json` file located in the **Sms
    - Rate of successful requests for the selected phone number.
 
 4. **GetPhoneLogsByDate**: Get a list of successful requests for a specific phone number within a date range.  
-   **URL**: `/api/rate-limiter/phone-logs-by-date`  
+   **URL**: `/api/Message/status/phonelog/{phoneNumber}/{from}/{to}`  
    **Method**: `GET`  
    **Query Parameters**:  
    - `phoneNumber`: The business phone number.  
@@ -93,8 +93,7 @@ The configuration is managed in the `appsettings.json` file located in the **Sms
 
 - **Moq** is used for unit testing the rate limiter logic.
 - Tests cover various scenarios, including:
-  - Checking whether a message can be sent when limits are near or exceeded.
-  - Verifying the correct cleanup of inactive phone number logs.
+  - Checking whether a message can be sent when limits are near or exceeded.  
 
 ## Getting Started
 
@@ -128,5 +127,6 @@ In `appsettings.json`, you can adjust the following parameters:
 ## Future Improvements
 
 - Implement exception handling for better robustness.
-- Add support for persistent storage (e.g., Redis or SQL database).
+- using Redis for distributed rate limiting, enabling efficient scaling of the system across multiple instances.
+- Integrate persistent storage for saving log requests, improving data control, and enabling better management of related queries.
 - Implement more complex cleanup strategies based on phone number activity.
