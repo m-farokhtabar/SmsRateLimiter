@@ -17,7 +17,7 @@ public class MessageController : ControllerBase
         this.smsRateLimiterService = smsRateLimiterService;
     }
 
-    [HttpPost("Send/{phoneNumber}")]
+    [HttpGet("Send/{phoneNumber}")]
     public IActionResult Send([Required(ErrorMessage = "Phone number is required")] string phoneNumber)
     {
         return smsRateLimiterService.IsItPossibleToSend(phoneNumber) ? Ok() : StatusCode(StatusCodes.Status429TooManyRequests);
@@ -31,5 +31,4 @@ public class MessageController : ControllerBase
 
     [HttpGet("status/phonelog/{phoneNumber}/{from:datetime}/{to:datetime}")]
     public IActionResult GetPhoneLogsByDate([Required(ErrorMessage = "Phone number is required")] string phoneNumber, DateTime from,DateTime to) => Ok(smsRateLimiterService.GetPhoneLogs(phoneNumber,from,to));
-
 }
