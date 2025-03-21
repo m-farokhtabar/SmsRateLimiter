@@ -50,10 +50,8 @@ The configuration is managed in the `appsettings.json` file located in the **Sms
 ## API Endpoints
 
 1. **Send**: Check if a message can be sent without exceeding the rate limit for the business phone number.  
-   **URL**: `/api/Message/Send`  
-   **Method**: `POST`  
-   **Request Body**:  
-   - JSON payload to check the rate limit for a given business phone number.  
+   **URL**: `/api/Message/Send/{phoneNumber}`  
+   **Method**: `GET`  
    **Response**:  
    - `200 Status` if the message can be sent.  
    - `429 Status` if the rate limit has been exceeded.
